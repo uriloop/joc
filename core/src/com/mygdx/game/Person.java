@@ -14,6 +14,7 @@ public class Person {
     int spriteNum;
     String spriteType;
     int dispar;
+    boolean haDisparat;
 
     Person(){
         posInicialX=200;
@@ -37,22 +38,22 @@ public class Person {
         spriteType="quiet";
         spriteNum=0;
         dispar=501;
+        haDisparat=false;
 
 
     }
 
     public void update() {
-        if(spriteType.equals("dispar")){
+
+        if(haDisparat&&dispar!=100){
             dispar++;
+            spriteType="dispar";
         }else{
+            haDisparat=false;
             spriteType="quiet";
-        }
-
-
-        if (dispar>2){
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+                haDisparat=true;
                 spriteType="dispar";
-
                 dispar=0;
 
             }else if (Gdx.input.isKeyPressed(Input.Keys.D)){
@@ -62,14 +63,18 @@ public class Person {
                 x-=3;
                 spriteType="esquerre";
             }
+            spriteNum++;
         }
+
+
+
 
 
     }
 
     void render(SpriteBatch batch){
         if (spriteType.equals("quiet")){
-            if (spriteNum==40)spriteNum=0;
+            if (spriteNum>=80)spriteNum=0;
             if (spriteNum<35){
                 batch.draw(quiet1,x,y);
             }else{
@@ -77,7 +82,7 @@ public class Person {
             }
 
         }else if(spriteType.equals("dreta")){
-            if (spriteNum==40)spriteNum=0;
+            if (spriteNum>=40)spriteNum=0;
             if(spriteNum<10){
                 batch.draw(right1,x,y);
             }else if(spriteNum<20){
@@ -88,8 +93,9 @@ public class Person {
                 batch.draw(right4,x,y);
             }
 
+
         }else if(spriteType.equals("esquerre")){
-            if (spriteNum==40)spriteNum=0;
+            if (spriteNum>=40)spriteNum=0;
             if(spriteNum<10){
                 batch.draw(left1,x,y);
             }else if(spriteNum<20){
@@ -100,18 +106,16 @@ public class Person {
                 batch.draw(left4,x,y);
             }
         }else if(spriteType.equals("dispar")){
-            if (spriteNum==3)spriteNum=0;
-            if(spriteNum<1){
+
+            if(dispar<5){
                 batch.draw(dispar1,x,y);
-            }else if(spriteNum<2){
+            }else if(dispar<10){
                 batch.draw(dispar2,x,y);
-            }else {
+            }else if (dispar<100){
                 batch.draw(dispar3,x,y);
             }
 
         }
-
-
 
 
 

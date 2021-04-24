@@ -36,6 +36,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		batch.begin();
 		fondo.render(batch);
+		person1.render(batch);
 		batch.end();
 	}
 	

@@ -1,6 +1,9 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Person {
 
@@ -10,14 +13,109 @@ public class Person {
 
     int spriteNum;
     String spriteType;
+    int dispar;
 
     Person(){
+        posInicialX=200;
+        x=posInicialX;
+        posInicialY=100;
+        y=posInicialY;
+        quiet1=new Texture("quiet1.png");
+        quiet2=new Texture("quiet2.png");
+        right1=new Texture("right1.png");
+        right2=new Texture("right2.png");
+        right3=new Texture("right3.png");
+        right4=new Texture("right4.png");
+        left1=new Texture("left1.png");
+        left2=new Texture("left2.png");
+        left3=new Texture("left3.png");
+        left4=new Texture("left4.png");
+        dispar1=new Texture("dispar1.png");
+        dispar2=new Texture("dispar2.png");
+        dispar3=new Texture("dispar3.png");
+
+        spriteType="quiet";
+        spriteNum=0;
+        dispar=501;
+
 
     }
 
     public void update() {
+        if(spriteType.equals("dispar")){
+            dispar++;
+        }else{
+            spriteType="quiet";
+        }
+
+
+        if (dispar>2){
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+                spriteType="dispar";
+
+                dispar=0;
+
+            }else if (Gdx.input.isKeyPressed(Input.Keys.D)){
+                x+=3;
+                spriteType="dreta";
+            }else if(Gdx.input.isKeyPressed(Input.Keys.A)){
+                x-=3;
+                spriteType="esquerre";
+            }
+        }
+
 
     }
 
+    void render(SpriteBatch batch){
+        if (spriteType.equals("quiet")){
+            if (spriteNum==40)spriteNum=0;
+            if (spriteNum<35){
+                batch.draw(quiet1,x,y);
+            }else{
+                batch.draw(quiet2,x,y);
+            }
 
+        }else if(spriteType.equals("dreta")){
+            if (spriteNum==40)spriteNum=0;
+            if(spriteNum<10){
+                batch.draw(right1,x,y);
+            }else if(spriteNum<20){
+                batch.draw(right2,x,y);
+            }else if(spriteNum<30){
+                batch.draw(right3,x,y);
+            }else {
+                batch.draw(right4,x,y);
+            }
+
+        }else if(spriteType.equals("esquerre")){
+            if (spriteNum==40)spriteNum=0;
+            if(spriteNum<10){
+                batch.draw(left1,x,y);
+            }else if(spriteNum<20){
+                batch.draw(left2,x,y);
+            }else if(spriteNum<30){
+                batch.draw(left3,x,y);
+            }else {
+                batch.draw(left4,x,y);
+            }
+        }else if(spriteType.equals("dispar")){
+            if (spriteNum==3)spriteNum=0;
+            if(spriteNum<1){
+                batch.draw(dispar1,x,y);
+            }else if(spriteNum<2){
+                batch.draw(dispar2,x,y);
+            }else {
+                batch.draw(dispar3,x,y);
+            }
+
+        }
+
+
+
+
+
+        spriteNum++;
+
+    }
 }

@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -12,6 +14,8 @@ public class Fondo {
     int h,w,x,y;
     int posSprite=0;
 
+    Sound so;
+
     Fondo(){
         fondo1=new Texture("fondo1.png");
         fondo2=new Texture("fondo2.png");
@@ -22,11 +26,20 @@ public class Fondo {
         y=0;
         h=500;
         y=400;
+
+
+        so= Gdx.audio.newSound(Gdx.files.internal("sons/mar.ogg"));
+        so.play(0.5f);
+        so.loop();
+
+
+
     }
 
     void update(){
         posSprite++;
         nuve.update();
+
     }
 
     void render(SpriteBatch batch){

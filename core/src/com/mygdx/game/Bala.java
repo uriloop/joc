@@ -14,7 +14,7 @@ public class Bala {
 
     Bala(float xPerson,float yPerson,float wPerson,float hPerson){
         x=xPerson+wPerson/2+10;
-        y=yPerson+hPerson;
+        y=yPerson+hPerson-30;
         spriteNum=0;
         bala1=new Texture("bala1.png");
         bala2=new Texture("bala2.png");

@@ -11,7 +11,9 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -20,6 +22,10 @@ public class MyGdxGame extends ApplicationAdapter {
 	Person person1,person2;
 	Vides vides;
 	Music music;
+	List<Ocell> ocells;
+	Temporitzador rellotge;
+	long rellotge1= 0L;
+
 
 	@Override
 	public void create () {
@@ -32,7 +38,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		music.setVolume(0.50f);
 		music.play();
 		music.setLooping(true);
-		person2=new Person(2);
+		//person2=new Person(2);
+		ocells=new ArrayList<>();
+
 	}
 
 	@Override
@@ -45,13 +53,30 @@ public class MyGdxGame extends ApplicationAdapter {
 		// ELS COMANDAMENTS ELS HAURIEM DE POSAR A LA PRIMERA PERO PER EXEMPLE A L'HORA DE CREAR sPRITES?...
 		fondo.update();
 		person1.update();
+		rellotge1++;
 		//person2.update();
+		if ((rellotge1/2)%300==0){
+			ocells.add(new Ocell());
+		}
+		boolean[] remoure=new boolean[ocells.size()];
+		for (Ocell ocell: ocells){
+			if (ocell.x<-40){
+				remoure[ocells.indexOf(ocell)]=true;
+			}
+			ocell.update();
+		}
+		for (int i = 0; i < ocells.size(); i++) {
+			if(remoure[i])ocells.remove(i);
+		}
 
 
 		batch.begin();
 		fondo.render(batch);
 		vides.render(batch);
 		person1.render(batch);
+		for (Ocell ocell: ocells){
+			ocell.render(batch);
+		}
 		//person2.render(batch);
 		batch.end();
 	}

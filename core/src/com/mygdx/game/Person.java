@@ -30,7 +30,7 @@ public class Person {
         posInicialY=105;
         y=posInicialY;
 
-        h=40;
+        h=70;
         w=14;
         quiet1=new Texture("quiet1.png");
         quiet2=new Texture("quiet2.png");
@@ -82,14 +82,21 @@ public class Person {
 
     public void update() {
 
+        boolean[] balaNum=new boolean[balas.size()];
 
 
         for (Bala bala: balas) {
-
-            bala.update();
-
             if (bala.y>=1000){
-                balas.remove(bala);
+                balaNum[balas.indexOf(bala)]=false;
+            }else{
+                balaNum[balas.indexOf(bala)]=true;
+
+            }
+            bala.update();
+        }
+        for (int i = 0; i < balas.size(); i++) {
+            if (!balaNum[i]){
+                balas.remove(i);
             }
         }
 
